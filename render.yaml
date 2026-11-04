@@ -1,0 +1,30 @@
+# إعداد الباك اند على Render (Blueprint). Render يقرأ هذا الملف تلقائياً.
+services:
+  - type: web
+    name: astro-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false        # رابط Atlas
+      - key: CLIENT_URL
+        sync: false        # https://USERNAME.github.io
+      - key: ADMIN_EMAIL
+        sync: false        # بريد حساب المدير
+      - key: ADMIN_PASSWORD
+        sync: false        # كلمة مرور المدير (8 أحرف أو أكثر)
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_DB
+        value: astro
+      - key: AUTO_SEED
+        value: "true"      # يضيف البيانات الأولية في أول تشغيل فقط
